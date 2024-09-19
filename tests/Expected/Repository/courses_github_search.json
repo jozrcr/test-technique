@@ -1,0 +1,32 @@
+[
+    {
+      "repository": "courses",
+      "full_repository_name": "DataScienceSpecialization/courses",
+      "description": "Course materials for the Data Science Specialization: https://www.coursera.org/specialization/jhudatascience/1",
+      "creator": "DataScienceSpecialization"
+    },
+    {
+      "repository": "awesome-courses",
+      "full_repository_name": "prakhar1989/awesome-courses",
+      "description": ":books: List of awesome university courses for learning Computer Science!",
+      "creator": "prakhar1989"
+    },
+    {
+      "repository": "cs-video-courses",
+      "full_repository_name": "Developer-Y/cs-video-courses",
+      "description": "List of Computer Science courses with video lectures.",
+      "creator": "Developer-Y"
+    },
+    {
+      "repository": "courses",
+      "full_repository_name": "fastai/courses",
+      "description": "fast.ai Courses",
+      "creator": "fastai"
+    },
+    {
+      "repository": "SJTU-Courses",
+      "full_repository_name": "kxxwz/SJTU-Courses",
+      "description": "上海交通大学课程资料分享",
+      "creator": "kxxwz"
+    }
+  ]
