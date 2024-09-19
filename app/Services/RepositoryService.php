@@ -4,43 +4,44 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use App\Connectors\GithubConnector;
+use App\Connectors\GitlabConnector;
 
 use Exception;
 
 class RepositoryService
 {
-    private $client;
+    private $githubConnector;
+    private $gitlabConnector;
 
-    public function __construct(Client $client)
+    public function __construct(GithubConnector $githubConnector, GitlabConnector $gitlabConnector)
     {
-        $this->client = $client;
+        $this->githubConnector = $githubConnector;
+        $this->gitlabConnector = $gitlabConnector;
     }
 
-    public function search(string $query): array
+    public function search(string $query, string $provider): array
     {
-        try {
-            $resp = $this->client->get('https://api.github.com/search/repositories?per_page=5&q=' . $query);
-        } catch (GuzzleException $e) {
-            throw new Exception("Unable to contact API server.");
+
+        $repositories = [];
+
+        if ($provider === 'github'){
+
+            $repositories = $this->githubConnector->search($query);
+
         }
 
-        $repositories = @json_decode($resp->getBody()->getContents(), true)['items'];
-        if ($repositories === null) {
-            throw new Exception("Unable to parse JSON resp.");
+        elseif ($provider === 'gitlab'){
+
+            $repositories = $this->gitlabConnector->search($query);
+
         }
 
-        $return = [];
-        foreach ($repositories as $r) {
-            $return[] = [
-                'name' => $r['name'],
-                'full_name' => $r['full_name'],
-                'description' => $r['description'],
-                'owner' => $r['owner']['username'] ?? $r['owner']['login'],
-            ];
+        else {
+            
+                throw new Exception("Invalid provider: $provider");
         }
 
-        return $return;
+        return $repositories;
     }
 }
